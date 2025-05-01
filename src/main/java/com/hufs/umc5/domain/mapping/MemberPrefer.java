@@ -1,0 +1,29 @@
+package com.hufs.umc5.domain.mapping;
+
+import com.hufs.umc5.domain.FoodCategory;
+import com.hufs.umc5.domain.Member;
+import com.hufs.umc5.domain.Mission;
+import com.hufs.umc5.domain.common.BaseEntity;
+import com.hufs.umc5.domain.enums.MissionStatus;
+import jakarta.persistence.*;
+import lombok.*;
+
+@Entity
+@Getter
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+public class MemberPrefer extends BaseEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_category_id")
+    private FoodCategory foodCategory;
+}
