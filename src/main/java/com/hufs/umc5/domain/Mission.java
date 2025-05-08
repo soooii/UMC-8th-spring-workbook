@@ -33,7 +33,7 @@ public class Mission extends BaseEntity {
     private String mission_spec;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id")
+    @JoinColumn(name = "store_id", referencedColumnName = "id")
     private Store store;
 
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
