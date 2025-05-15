@@ -33,20 +33,17 @@ dependencies {
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
-    // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    // Jackson
-    //implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.17.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.17.0'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.17.0'
 
-    // OpenAPI
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
-    implementation 'org.springdoc:springdoc-openapi-data-rest:1.6.9'
+    // swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.4.0'
 
+    // validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

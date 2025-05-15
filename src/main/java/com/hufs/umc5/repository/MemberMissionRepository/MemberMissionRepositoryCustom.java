@@ -9,4 +9,6 @@ public interface MemberMissionRepositoryCustom {
 
     // 미션 상태에 따른 멤버의 미션 조회
     List<MemberMission> dynamicQueryWithBooleanBuilder(Long memberId, MissionStatus status, String region);
+
+    MemberMission findMemberMissionByMemberIdAndMissionId(Long memberId, Long missionId);
 }

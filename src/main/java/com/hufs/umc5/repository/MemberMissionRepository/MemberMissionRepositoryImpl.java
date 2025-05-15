@@ -40,4 +40,14 @@ public class MemberMissionRepositoryImpl implements MemberMissionRepositoryCusto
                 .where(predicate)
                 .fetch();
     }
+
+    @Override
+    public MemberMission findMemberMissionByMemberIdAndMissionId(Long memberId, Long missionId) {
+        return jpaQueryFactory
+                .selectFrom(mission)
+                .where(mission.member.id.eq(memberId)
+                        .and(mission.mission.id.eq(missionId))
+                )
+                .fetchOne();
+    }
 }

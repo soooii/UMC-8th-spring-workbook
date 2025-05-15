@@ -9,6 +9,9 @@ import com.hufs.umc5.domain.mapping.MemberMission;
 import com.hufs.umc5.domain.mapping.MemberPrefer;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -16,6 +19,8 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
+@DynamicInsert
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -38,12 +43,17 @@ public class Member extends BaseEntity {
     private SocialType socialType;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private MemberStatus status;
 
     private LocalDate inactiveDate;
 
+    // 소셜 로그인 없이 하는 중, 이메일은 nullable로 바꾸고 진행
+    // @Column(nullable = false, length=50)
     private String email;
 
+    //@ColumnDefault("0")
+    @Column(name = "point", columnDefinition = "INT DEFAULT 0")
     private Integer point;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
