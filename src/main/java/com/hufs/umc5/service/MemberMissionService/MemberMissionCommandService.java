@@ -6,4 +6,5 @@ import com.hufs.umc5.dto.MemberMissionRequestDTO;
 public interface MemberMissionCommandService {
 
     MemberMission toChallenging(MemberMissionRequestDTO request);
+    MemberMission toComplete(MemberMissionRequestDTO request);
 }

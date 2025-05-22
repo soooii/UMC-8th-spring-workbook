@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ReviewRequestDTO{
     private String body;
-    private Long score;
+    private Float score;
     private LocalDateTime createdAt;
 }

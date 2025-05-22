@@ -32,7 +32,11 @@ public enum ErrorStatus implements BaseErrorCode {
 
     REGION_NOT_FOUND(HttpStatus.BAD_REQUEST, "REGION4001", "해당 지역이 없습니다."),
 
-    ALLREADY_CHALLENGING(HttpStatus.BAD_REQUEST, "MEMBERMISSION4001", "이미 도전 중인 미션입니다.");
+    ALLREADY_CHALLENGING(HttpStatus.BAD_REQUEST, "MEMBERMISSION4001", "이미 도전 중인 미션입니다."),
+    ALLREADY_COMPLETE(HttpStatus.BAD_REQUEST, "MEMBERMISSION4002", "이미 완료된 미션입니다."),
+
+    INVALID_PAGE_NUMBER(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지 번호는 0보다 커야합니다.");
+
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;

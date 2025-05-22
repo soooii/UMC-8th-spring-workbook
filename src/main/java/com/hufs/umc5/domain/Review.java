@@ -20,7 +20,7 @@ public class Review extends BaseEntity {
 
     private String body;
 
-    private Long score;
+    private Float score;
 
     @OneToMany(mappedBy = "review", cascade = CascadeType.ALL)
     private List<ReviewImage> ReviewImageList = new ArrayList<>();

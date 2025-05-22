@@ -5,22 +5,20 @@ import com.hufs.umc5.domain.enums.MissionStatus;
 import com.hufs.umc5.domain.mapping.MemberMission;
 import com.hufs.umc5.dto.MemberMissionRequestDTO;
 import com.hufs.umc5.repository.MemberMissionRepository.MemberMissionRepository;
-import com.hufs.umc5.validation.annotation.IfChallenging;
+
+import com.hufs.umc5.validation.annotation.IfComplete;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
-
-
 @Component
 @RequiredArgsConstructor
-public class IfChallengingValidator implements ConstraintValidator<IfChallenging, MemberMissionRequestDTO> {
+public class IfCompleteValidator implements ConstraintValidator<IfComplete, MemberMissionRequestDTO> {
     private final MemberMissionRepository memberMissionRepository;
 
     @Override
-    public void initialize(IfChallenging constraintAnnotation) {
+    public void initialize(IfComplete constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
@@ -28,9 +26,10 @@ public class IfChallengingValidator implements ConstraintValidator<IfChallenging
     public boolean isValid(MemberMissionRequestDTO dto, ConstraintValidatorContext context) {
 
         MemberMission memberMission = memberMissionRepository.findMemberMissionByMemberIdAndMissionId(dto.getMemberId(), dto.getMissionId());
-        if(memberMission.getStatus() == MissionStatus.CHALLENGING){
+
+        if(memberMission.getStatus() == MissionStatus.COMPLETE){
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.ALLREADY_CHALLENGING.toString()).addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(ErrorStatus.ALLREADY_COMPLETE.toString()).addConstraintViolation();
             return false;
         }
 

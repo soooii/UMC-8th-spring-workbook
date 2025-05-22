@@ -1,11 +1,16 @@
 package com.hufs.umc5.converter;
 
 import com.hufs.umc5.domain.Mission;
+import com.hufs.umc5.domain.Review;
 import com.hufs.umc5.domain.Store;
 import com.hufs.umc5.dto.MissionRequestDTO;
 import com.hufs.umc5.dto.MissionResponseDTO;
+import com.hufs.umc5.dto.ReviewResponseDTO;
+import org.springframework.data.domain.Page;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class MissionConverter {
 
@@ -26,5 +31,29 @@ public class MissionConverter {
                 .deadline(requestDTO.getDeadline())
                 .build();
 
+    }
+
+    // entity to dto
+    public static MissionResponseDTO.MissionPreViewDTO missionPreViewDTO(Mission mission){
+        return MissionResponseDTO.MissionPreViewDTO.builder()
+                .mission_spec(mission.getMission_spec())
+                .reward(mission.getReward())
+                .deadline(mission.getDeadline())
+                .build();
+    }
+
+    public static MissionResponseDTO.MissionPreViewListDTO missionPreViewListDTO(Page<Mission> missionList){
+
+        List<MissionResponseDTO.MissionPreViewDTO> missionPreViewDTOList = missionList.stream()
+                .map(MissionConverter::missionPreViewDTO).collect(Collectors.toList());
+
+        return MissionResponseDTO.MissionPreViewListDTO.builder()
+                .isLast(missionList.isLast())
+                .isFirst(missionList.isFirst())
+                .totalPage(missionList.getTotalPages())
+                .totalElements(missionList.getTotalElements())
+                .listSize(missionPreViewDTOList.size())
+                .missionList(missionPreViewDTOList)
+                .build();
     }
 }
