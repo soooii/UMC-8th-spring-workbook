@@ -2,9 +2,9 @@
 
 spring:
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/umc
+    username: root
+    password: 1234
 
   sql:
     init:
@@ -19,8 +19,4 @@ spring:
         hbm2ddl:
           auto: update
         default_batch_fetch_size: 1000
-jwt:
-  token:
-    secretKey: umceightfightingjwttokenauthentication
-    expiration:
-      access: 14400000
+

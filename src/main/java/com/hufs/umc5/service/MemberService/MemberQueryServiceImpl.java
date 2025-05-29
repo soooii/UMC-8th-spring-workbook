@@ -1,7 +1,7 @@
 package com.hufs.umc5.service.MemberService;
 
 import com.hufs.umc5.apiPayload.code.status.ErrorStatus;
-import com.hufs.umc5.config.security.jwt.JwtTokenProvider;
+
 import com.hufs.umc5.converter.MemberConverter;
 import com.hufs.umc5.domain.Member;
 import com.hufs.umc5.domain.Review;
@@ -27,7 +27,7 @@ import java.util.Optional;
 public class MemberQueryServiceImpl implements MemberQueryService {
     private final MemberRepository memberRepository;
     private final ReviewRepository reviewRepository;
-    private final JwtTokenProvider jwtTokenProvider;
+
 
     @Override
     public Optional<Member> findMember(Long id) {
@@ -39,17 +39,6 @@ public class MemberQueryServiceImpl implements MemberQueryService {
         Member member = memberRepository.findById(memberId).get();
         Page<Review> memberPage = reviewRepository.findAllByMember(member, PageRequest.of(page, 10));
         return memberPage;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public MemberResponseDTO.MemberInfoDTO getMemberInfo(HttpServletRequest request){
-        Authentication authentication = jwtTokenProvider.extractAuthentication(request);
-        String email = authentication.getName();
-
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(()-> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
-        return MemberConverter.toMemberInfoDTO(member);
     }
 
 

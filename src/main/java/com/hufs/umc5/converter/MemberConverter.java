@@ -25,7 +25,7 @@ public class MemberConverter {
         switch (request.getGender()) {
             case 1: gender = Gender.MALE; break;
             case 2: gender = Gender.FEMALE; break;
-            //case 3: gender = Gender.NONE; break;
+            case 3: gender = Gender.NONE; break;
         }
 
         return Member.builder()
@@ -40,18 +40,4 @@ public class MemberConverter {
                 .build();
     }
 
-    public static MemberResponseDTO.LoginResultDTO toLoginResultDTO(Long memberId, String accessToken) {
-        return MemberResponseDTO.LoginResultDTO.builder()
-                .memberId(memberId)
-                .accessToken(accessToken)
-                .build();
-    }
-
-    public static MemberResponseDTO.MemberInfoDTO toMemberInfoDTO(Member member){
-        return MemberResponseDTO.MemberInfoDTO.builder()
-                .name(member.getName())
-                .email(member.getEmail())
-                .gender(member.getGender().name())
-                .build();
-    }
 }

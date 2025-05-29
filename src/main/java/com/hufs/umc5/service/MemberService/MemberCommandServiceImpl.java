@@ -1,23 +1,22 @@
 package com.hufs.umc5.service.MemberService;
 
 import com.hufs.umc5.apiPayload.code.status.ErrorStatus;
-import com.hufs.umc5.config.security.jwt.JwtTokenProvider;
+
 import com.hufs.umc5.converter.MemberConverter;
 import com.hufs.umc5.converter.MemberPreferConverter;
 import com.hufs.umc5.domain.FoodCategory;
 import com.hufs.umc5.domain.Member;
 import com.hufs.umc5.domain.mapping.MemberPrefer;
 import com.hufs.umc5.dto.MemberRequestDTO;
-import com.hufs.umc5.dto.MemberResponseDTO;
+
 import com.hufs.umc5.exception.handler.FoodCategoryHandler;
-import com.hufs.umc5.exception.handler.MemberHandler;
+
 import com.hufs.umc5.repository.FoodCategoryRepository.FoodCategoryRepository;
 import com.hufs.umc5.repository.MemberRepository.MemberRepository;
-import jakarta.servlet.http.HttpServletRequest;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +31,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final MemberRepository memberRepository;
     private final FoodCategoryRepository foodCategoryRepository;
     private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
+
 
     @Override
     @Transactional
@@ -53,30 +52,6 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
         return memberRepository.save(newMember);
     }
-
-    @Override
-    public MemberResponseDTO.LoginResultDTO loginMember(MemberRequestDTO.LoginRequestDTO request) {
-        Member member = memberRepository.findByEmail(request.getEmail())
-                .orElseThrow(()-> new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND));
-
-        if(!passwordEncoder.matches(request.getPassword(), member.getPassword())) {
-            throw new MemberHandler(ErrorStatus.INVALID_PASSWORD);
-        }
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                member.getEmail(), null,
-                Collections.singleton(() -> member.getRole().name())
-        );
-
-        String accessToken = jwtTokenProvider.generateToken(authentication);
-
-        return MemberConverter.toLoginResultDTO(
-                member.getId(),
-                accessToken
-        );
-    }
-
-
 
 }
 

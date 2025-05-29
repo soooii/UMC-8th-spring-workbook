@@ -57,21 +57,5 @@ public class MemberRestController {
         return ApiResponse.onSuccess(ReviewConverter.reviewPreViewListDTO(reviewList));
     }
 
-    @PostMapping("/login")
-    @Operation(summary = "유저 로그인 API",description = "유저가 로그인하는 API입니다.")
-    public ApiResponse<MemberResponseDTO.LoginResultDTO> login(@RequestBody @Valid MemberRequestDTO.LoginRequestDTO request) {
-        return ApiResponse.onSuccess(memberCommandService.loginMember(request));
-    }
-
-    @GetMapping("/info")
-    @Operation(summary = "유저 내 정보 조회 API - 인증 필요",
-            description = "유저가 내 정보를 조회하는 API입니다.",
-            security = { @SecurityRequirement(name = "JWT TOKEN") }
-    )
-    public ApiResponse<MemberResponseDTO.MemberInfoDTO> getMyInfo(HttpServletRequest request) {
-        return ApiResponse.onSuccess(memberQueryService.getMemberInfo(request));
-    }
-
-
 
 }
