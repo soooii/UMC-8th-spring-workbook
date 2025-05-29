@@ -3,6 +3,7 @@ package com.hufs.umc5.domain;
 import com.hufs.umc5.domain.common.BaseEntity;
 import com.hufs.umc5.domain.enums.Gender;
 import com.hufs.umc5.domain.enums.MemberStatus;
+import com.hufs.umc5.domain.enums.Role;
 import com.hufs.umc5.domain.enums.SocialType;
 import com.hufs.umc5.domain.mapping.MemberAgree;
 import com.hufs.umc5.domain.mapping.MemberMission;
@@ -48,10 +49,6 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-    // 소셜 로그인 없이 하는 중, 이메일은 nullable로 바꾸고 진행
-    // @Column(nullable = false, length=50)
-    private String email;
-
     //@ColumnDefault("0")
     @Column(name = "point", columnDefinition = "INT DEFAULT 0")
     private Integer point;
@@ -67,4 +64,21 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
+
+
+
+
 }

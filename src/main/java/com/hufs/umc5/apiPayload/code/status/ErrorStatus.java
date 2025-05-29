@@ -16,10 +16,12 @@ public enum ErrorStatus implements BaseErrorCode {
     _UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"COMMON401","인증이 필요합니다."),
     _FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
-
-    // 멤버 관련 에러
+    // Member Error
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "사용자가 없습니다."),
     NICKNAME_NOT_EXIST(HttpStatus.BAD_REQUEST, "MEMBER4002", "닉네임은 필수 입니다."),
+    INVALID_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER4003", "패스워드가 불일치합니다."),
+    DUPLICATE_JOIN_REQUEST(HttpStatus.BAD_REQUEST, "MEMBER4004", "해당 이메일로 이미 가입된 사용자가 존재합니다."),
+    INVALID_TOKEN(HttpStatus.BAD_REQUEST, "MEMBER4005", "유효하지 않은 토큰입니다."),
 
     ARTICLE_NOT_FOUND(HttpStatus.NOT_FOUND, "ARTICLE4001", "게시글이 없습니다."),
 
@@ -36,7 +38,6 @@ public enum ErrorStatus implements BaseErrorCode {
     ALLREADY_COMPLETE(HttpStatus.BAD_REQUEST, "MEMBERMISSION4002", "이미 완료된 미션입니다."),
 
     INVALID_PAGE_NUMBER(HttpStatus.BAD_REQUEST, "PAGE4001", "페이지 번호는 0보다 커야합니다.");
-
     private final HttpStatus httpStatus;
     private final String code;
     private final String message;
